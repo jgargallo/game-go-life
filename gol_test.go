@@ -10,19 +10,33 @@ import (
 var _ = Describe("Gol", func() {
 
 	var (
+		board1Neighbour = NewBoard([]Cell{{1, 1}, {0, 1}})
 		board2Neighbours *Board
-		board1Neighbour *Board
+		board3Neighbours *Board
+		board4Neighbours *Board
 	)
 
 	BeforeEach(func() {
-		board2Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}})
 		board1Neighbour = NewBoard([]Cell{{1, 1}, {0, 1}})
+		board2Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}})
+		board3Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}, {1, 0}})
+		board4Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}, {1, 0}, {2, 1}})
 	})
 
 	Describe("Categorizing surviving cells", func() {
 		Context("Less than two alive neighbours", func() {
-			It("Shoudn't be alive", func() {
+			It("Should NOT be alive", func() {
 				Expect(board1Neighbour.Survives(Cell{1, 1})).To(BeFalse())
+			})
+		})
+		Context("More than three alive neighbours", func() {
+			It("Should NOT be alive", func() {
+				Expect(board4Neighbours.Survives(Cell{1, 1})).To(BeFalse())
+			})
+		})
+		Context("2 or 3 alive neighbours", func() {
+			It("Should be alive", func() {
+				Expect(board3Neighbours.Survives(Cell{1, 1})).To(BeTrue())
 			})
 		})
 	})

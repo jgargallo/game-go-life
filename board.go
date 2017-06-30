@@ -1,6 +1,7 @@
 package main
 
-import "fmt"
+const UNDERPOPULATION_LIMIT = 2
+const OVERPOPULATION_LIMIT = 3
 
 type Cell [2]int
 
@@ -29,7 +30,9 @@ func (board *Board) numAliveNeighbours(cell Cell) int {
 }
 
 func (board *Board) Survives(cell Cell) bool {
-
+	return board.isAlive(cell) &&
+			(board.numAliveNeighbours(cell) == UNDERPOPULATION_LIMIT ||
+			 board.numAliveNeighbours(cell) == OVERPOPULATION_LIMIT)
 }
 
 func NewBoard(conf []Cell) *Board {
@@ -37,7 +40,7 @@ func NewBoard(conf []Cell) *Board {
 	board.AliveCells = conf
 	board.neighboursOffset = []Cell{
 		{-1, 1} , {0, 1} , {1, 1},
-		{-1, 0} ,        , {1, 0},
+		{-1, 0} ,          {1, 0},
 		{-1, -1}, {0, -1}, {1, -1},
 	}
 
