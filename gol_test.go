@@ -10,17 +10,17 @@ import (
 var _ = Describe("Gol", func() {
 
 	var (
-		board1Neighbour = NewBoard([]Cell{{1, 1}, {0, 1}})
+		board1Neighbour = NewBoard(Cells{{1, 1}, {0, 1}})
 		board2Neighbours *Board
 		board3Neighbours *Board
 		board4Neighbours *Board
 	)
 
 	BeforeEach(func() {
-		board1Neighbour = NewBoard([]Cell{{1, 1}, {0, 1}})
-		board2Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}})
-		board3Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}, {1, 0}})
-		board4Neighbours = NewBoard([]Cell{{1, 1}, {0, 1}, {1, 2}, {1, 0}, {2, 1}})
+		board1Neighbour = NewBoard(Cells{{1, 1}, {0, 1}})
+		board2Neighbours = NewBoard(Cells{{1, 1}, {0, 1}, {1, 2}})
+		board3Neighbours = NewBoard(Cells{{1, 1}, {0, 1}, {1, 2}, {1, 0}})
+		board4Neighbours = NewBoard(Cells{{1, 1}, {0, 1}, {1, 2}, {1, 0}, {2, 1}})
 	})
 
 	Describe("Categorizing surviving cells", func() {

@@ -1,12 +1,28 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 const UNDERPOPULATION_LIMIT = 2
 const OVERPOPULATION_LIMIT = 3
 const RESURRECTION = 3
 
 type Cell [2]int
+type Cells []Cell
+
+func (slice Cells) Len() int {
+	return len(slice)
+}
+
+func (slice Cells) Less(i, j int) bool {
+	return slice[i][0] < slice[j][0] || slice[i][0] == slice[j][0] && slice[i][1] < slice[j][1];
+}
+
+func (slice Cells) Swap(i, j int) {
+	slice[i], slice[j] = slice[j], slice[i]
+}
 
 type Board struct {
 	AliveCells []Cell
@@ -52,13 +68,14 @@ func (board *Board) NextGeneration() *Board {
 		}
 	}
 
-	keys := make([]Cell, len(cells))
+	keys := make(Cells, len(cells))
 
 	i := 0
 	for k := range cells {
 		keys[i] = k
 		i++
 	}
+	sort.Sort(keys)
 	return NewBoard(keys)
 }
 
@@ -76,7 +93,7 @@ func NewBoard(conf []Cell) *Board {
 
 func Play(board *Board) {
 	for len(board.AliveCells) > 0 {
-		fmt.Println(board.AliveCells)
+		fmt.Print("\x0c", board.AliveCells)
 		board = board.NextGeneration()
 	}
 }
