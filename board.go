@@ -59,8 +59,6 @@ func (board *Board) NextGeneration() *Board {
 		keys[i] = k
 		i++
 	}
-	fmt.Println("NEW GEN")
-	fmt.Println(keys)
 	return NewBoard(keys)
 }
 
@@ -74,4 +72,11 @@ func NewBoard(conf []Cell) *Board {
 	}
 
 	return board
+}
+
+func Play(board *Board) {
+	for len(board.AliveCells) > 0 {
+		fmt.Println(board.AliveCells)
+		board = board.NextGeneration()
+	}
 }

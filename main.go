@@ -11,7 +11,7 @@ func main() {
 	glider := []Cell{{5, 4}, {6, 4}, {7, 4}, {7, 5}, {6, 6}}
 	board := NewBoard(append(block, append(blinker, glider...)...))
 
-	fmt.Println(*board)
+	Play(board)
 
 	fmt.Println("GAME OVER!")
 }
