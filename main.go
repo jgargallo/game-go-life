@@ -31,7 +31,7 @@ func Play(board *Board) {
 	for len(board.AliveCells) > 0 {
 		Clear()
 		Print(board)
-		time.Sleep(1000 * time.Millisecond)
+		time.Sleep(500 * time.Millisecond)
 		//break
 		board = board.NextGeneration()
 	}
