@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -75,13 +74,14 @@ func (board *Board) NextGeneration() *Board {
 		keys[i] = k
 		i++
 	}
-	sort.Sort(keys)
+
 	return NewBoard(keys)
 }
 
-func NewBoard(conf []Cell) *Board {
+func NewBoard(cells Cells) *Board {
+	sort.Sort(cells)
 	board := new(Board)
-	board.AliveCells = conf
+	board.AliveCells = cells
 	board.neighboursOffset = []Cell{
 		{-1, 1} , {0, 1} , {1, 1},
 		{-1, 0} ,          {1, 0},
@@ -89,11 +89,4 @@ func NewBoard(conf []Cell) *Board {
 	}
 
 	return board
-}
-
-func Play(board *Board) {
-	for len(board.AliveCells) > 0 {
-		fmt.Print("\x0c", board.AliveCells)
-		board = board.NextGeneration()
-	}
 }
