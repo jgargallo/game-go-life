@@ -41,4 +41,17 @@ var _ = Describe("Gol", func() {
 		})
 	})
 
+	Describe("Categorizing resurrected cells", func() {
+		Context("A dead cell with exactly 3 neighbours", func() {
+			It("Should resurrect", func() {
+				Expect(board2Neighbours.Resurrects(Cell{0, 2})).To(BeTrue())
+			})
+		})
+		Context("A dead cell with NOT exactly 3 neighbours", func() {
+			It("Should NOT resurrect", func() {
+				Expect(board2Neighbours.Resurrects(Cell{2, 0})).To(BeFalse())
+			})
+		})
+	})
+
 })

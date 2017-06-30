@@ -2,6 +2,7 @@ package main
 
 const UNDERPOPULATION_LIMIT = 2
 const OVERPOPULATION_LIMIT = 3
+const RESURRECTION = 3
 
 type Cell [2]int
 
@@ -33,6 +34,10 @@ func (board *Board) Survives(cell Cell) bool {
 	return board.isAlive(cell) &&
 			(board.numAliveNeighbours(cell) == UNDERPOPULATION_LIMIT ||
 			 board.numAliveNeighbours(cell) == OVERPOPULATION_LIMIT)
+}
+
+func (board *Board) Resurrects(cell Cell) bool {
+	return !board.isAlive(cell) && board.numAliveNeighbours(cell) == RESURRECTION
 }
 
 func NewBoard(conf []Cell) *Board {
