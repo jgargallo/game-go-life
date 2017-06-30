@@ -54,4 +54,16 @@ var _ = Describe("Gol", func() {
 		})
 	})
 
+	Describe("Next Generation", func() {
+		Context("3 Alive cells in 0,1 | 1,1 | 1,2", func() {
+			It("Should keep alive the 3 cells and resurrect 0,2", func() {
+				nextGen := board2Neighbours.NextGeneration()
+				Expect(nextGen.IsAlive(Cell{1,1})).To(BeTrue())
+				Expect(nextGen.IsAlive(Cell{0,1})).To(BeTrue())
+				Expect(nextGen.IsAlive(Cell{1,2})).To(BeTrue())
+				Expect(nextGen.IsAlive(Cell{0,2})).To(BeTrue())
+			})
+		})
+	})
+
 })
