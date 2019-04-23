@@ -1,7 +1,7 @@
 package main_test
 
 import (
-	. "gol"
+	. "github.com/jgargallo/game-go-life"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

@@ -16,7 +16,7 @@ func (slice Cells) Len() int {
 }
 
 func (slice Cells) Less(i, j int) bool {
-	return slice[i][0] < slice[j][0] || slice[i][0] == slice[j][0] && slice[i][1] < slice[j][1];
+	return slice[i][0] < slice[j][0] || slice[i][0] == slice[j][0] && slice[i][1] < slice[j][1]
 }
 
 func (slice Cells) Swap(i, j int) {
@@ -24,7 +24,7 @@ func (slice Cells) Swap(i, j int) {
 }
 
 type Board struct {
-	AliveCells []Cell
+	AliveCells       []Cell
 	neighboursOffset []Cell
 }
 
@@ -40,8 +40,10 @@ func (board *Board) IsAlive(cell Cell) bool {
 func (board *Board) numAliveNeighbours(cell Cell) int {
 	num := 0
 	for _, n := range board.neighboursOffset {
-		x, y := cell[0] + n[0], cell[1] + n[1]
-		if board.IsAlive(Cell{x, y}) { num++ }
+		x, y := cell[0]+n[0], cell[1]+n[1]
+		if board.IsAlive(Cell{x, y}) {
+			num++
+		}
 	}
 
 	return num
@@ -49,8 +51,8 @@ func (board *Board) numAliveNeighbours(cell Cell) int {
 
 func (board *Board) Survives(cell Cell) bool {
 	return board.IsAlive(cell) &&
-			(board.numAliveNeighbours(cell) == UNDERPOPULATION_LIMIT ||
-			 board.numAliveNeighbours(cell) == OVERPOPULATION_LIMIT)
+		(board.numAliveNeighbours(cell) == UNDERPOPULATION_LIMIT ||
+			board.numAliveNeighbours(cell) == OVERPOPULATION_LIMIT)
 }
 
 func (board *Board) Resurrects(cell Cell) bool {
@@ -60,10 +62,14 @@ func (board *Board) Resurrects(cell Cell) bool {
 func (board *Board) NextGeneration() *Board {
 	cells := make(map[Cell]bool)
 	for _, c := range board.AliveCells {
-		if board.Survives(c) { cells[c] = true }
+		if board.Survives(c) {
+			cells[c] = true
+		}
 		for _, n := range board.neighboursOffset {
-			target := Cell{ c[0] + n[0], c[1] + n[1]}
-			if board.Resurrects(target) { cells[target] = true }
+			target := Cell{c[0] + n[0], c[1] + n[1]}
+			if board.Resurrects(target) {
+				cells[target] = true
+			}
 		}
 	}
 
@@ -83,8 +89,8 @@ func NewBoard(cells Cells) *Board {
 	board := new(Board)
 	board.AliveCells = cells
 	board.neighboursOffset = []Cell{
-		{-1, 1} , {0, 1} , {1, 1},
-		{-1, 0} ,          {1, 0},
+		{-1, 1}, {0, 1}, {1, 1},
+		{-1, 0}, {1, 0},
 		{-1, -1}, {0, -1}, {1, -1},
 	}
 
